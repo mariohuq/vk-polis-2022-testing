@@ -11,6 +11,7 @@
 # And CI
 !.travis.yml
 !build.gradle.kts
+!settings.gradle.kts
 !gradlew
 !gradlew.bat
 !LICENSE
