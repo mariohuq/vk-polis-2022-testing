@@ -25,7 +25,7 @@ dependencies {
     }
 
     // https://selenide.org/quick-start.html
-    testImplementation("com.codeborne:selenide:6.3.3") {
+    implementation("com.codeborne:selenide:6.3.3") {
         because("we want to use Selenide too, to remote control browsers")
     }
 
