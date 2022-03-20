@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 
 public class OpenProfilePageTest extends BaseWebTest {
 
-    private static final String USERNAME = "Михаил Палыч";
+    private static final String USERNAME = "РњРёС…Р°РёР» РџР°Р»С‹С‡";
 
     @Test
     public void openProfilePage() {
