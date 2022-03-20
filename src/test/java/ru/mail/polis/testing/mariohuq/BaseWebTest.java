@@ -1,16 +1,27 @@
 package ru.mail.polis.testing.mariohuq;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import ru.mail.polis.testing.mariohuq.pages.LoginPage;
+import ru.mail.polis.testing.mariohuq.pages.MainPage;
 import ru.mail.polis.testing.mariohuq.utils.User;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Configuration.*;
 
+/**
+ * Нужно добавить переменные окружения. Пример:
+ *
+ * ok.login=78005553535;ok.password=12345678QWERTY;ok.displayName=Михаил Палыч
+ *
+ * в IDEA: Edit configurations... > Run > Environment variables
+ */
 public class BaseWebTest {
 
-    private static final User USER = new User("88005553535", "password");
+    protected static final User USER = User.fromProperties();
+    protected MainPage mainPage;
 
     @BeforeAll
     public static void openOk() {
@@ -19,15 +30,21 @@ public class BaseWebTest {
         browser = "chrome";
         browserPosition = "0x0";
         browserSize = "1280x1024";
-        login();
+    }
+
+    @BeforeEach
+    void login() {
+        mainPage = new LoginPage().login(USER);
+    }
+
+    @AfterEach
+    void logout() {
+        mainPage.logout();
+        mainPage = null;
     }
 
     @AfterAll
     public static void closeOk() {
         closeWebDriver();
-    }
-
-    protected static void login() {
-        new LoginPage().login(USER);
     }
 }

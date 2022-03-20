@@ -13,4 +13,8 @@ public class MainPage {
         profileLink.click();
         return new ProfilePage();
     }
+
+    public void logout() {
+        throw new UnsupportedOperationException("TODO");
+    }
 }
