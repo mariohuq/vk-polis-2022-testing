@@ -40,7 +40,7 @@ public class BaseWebTest {
     }
 
     // на случай приколов с кодировкой типа РњРёС…Р°РёР» РџР°Р»С‹С‡
-    public static String prayToUTF_8(String o1){
+    public static String prayToUTF_8(String o1) {
         try {
             return new String(o1.getBytes("windows-1251"), StandardCharsets.UTF_8);
         } catch (UnsupportedEncodingException e) {
