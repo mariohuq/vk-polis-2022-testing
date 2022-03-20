@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import ru.mail.polis.testing.mariohuq.pages.MainPage;
 import ru.mail.polis.testing.mariohuq.pages.ProfilePage;
 
-import java.nio.charset.StandardCharsets;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class OpenProfilePageTest extends BaseWebTest {
 
