@@ -11,10 +11,4 @@ public class OpenProfilePageTest extends BaseWebTest {
         ProfilePage profile = mainPage.openProfile();
         profile.shouldHaveUserName(USER.displayName());
     }
-
-    @Test
-    public void openProfilePage2() {
-        ProfilePage profile = new LoginPage().login(USER).openProfile();
-        profile.shouldHaveUserName(USER.displayName());
-    }
 }
