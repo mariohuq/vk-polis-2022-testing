@@ -22,10 +22,9 @@ public class LoginPage {
         open("/");
     }
 
-    public MainPage login(User user) {
+    public void login(User user) {
         loginField.setValue(user.login());
         passwordField.setValue(user.password());
         loginButton.click();
-        return new MainPage();
     }
 }
