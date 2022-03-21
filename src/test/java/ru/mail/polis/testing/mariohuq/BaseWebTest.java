@@ -21,7 +21,6 @@ import static com.codeborne.selenide.Configuration.*;
 public class BaseWebTest {
 
     protected static final User USER = User.fromProperties();
-    protected MainPage mainPage;
 
     @BeforeAll
     public static void openOk() {
@@ -30,17 +29,7 @@ public class BaseWebTest {
         browser = "chrome";
         browserPosition = "0x0";
         browserSize = "1280x1024";
-    }
-
-    @BeforeEach
-    void login() {
-        mainPage = new LoginPage().login(USER);
-    }
-
-    @AfterEach
-    void logout() {
-        mainPage.logout();
-        mainPage = null;
+        new LoginPage().login(USER);
     }
 
     @AfterAll
