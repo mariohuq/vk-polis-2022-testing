@@ -1,13 +1,9 @@
 package ru.mail.polis.testing.mariohuq.pages;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import ru.mail.polis.testing.mariohuq.utils.User;
 
-import java.io.IOException;
-
-import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
