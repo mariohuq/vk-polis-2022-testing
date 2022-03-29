@@ -1,36 +1,34 @@
 package ru.mail.polis.testing.mariohuq;
 
-import org.junit.jupiter.api.AfterAll;
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.BeforeAll;
-import ru.mail.polis.testing.mariohuq.pages.LoginPage;
-import ru.mail.polis.testing.mariohuq.utils.User;
-
-import static com.codeborne.selenide.Configuration.*;
-import static com.codeborne.selenide.Selenide.closeWebDriver;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * Нужно добавить переменные окружения. Пример:
- *
+ * <p>
  * ok.login=78005553535;ok.password=12345678QWERTY;ok.displayName=Михаил Палыч
- *
+ * <p>
  * в IDEA: Edit configurations... > Run > Environment variables
  */
 public class BaseWebTest {
-
-    protected static final User USER = User.fromProperties();
+    private static final String BASE_URL = "https://ok.ru";
 
     @BeforeAll
-    public static void openOk() {
-        timeout = 10000;
-        baseUrl = "https://ok.ru";
-        browser = "chrome";
-        browserPosition = "0x0";
-        browserSize = "1280x1024";
-        new LoginPage().login(USER);
+    public static void configure() {
+        Configuration.baseUrl = BASE_URL;
+        Configuration.browser = "chrome";
+        Configuration.browserPosition = "0x0";
+        Configuration.browserSize = "1280x1024";
     }
 
-    @AfterAll
-    public static void closeOk() {
-        closeWebDriver();
+    protected static void open(String url) {
+        Selenide.open(url);
+    }
+
+    @BeforeEach
+    public void resetDriver() {
+        Selenide.closeWebDriver();
     }
 }

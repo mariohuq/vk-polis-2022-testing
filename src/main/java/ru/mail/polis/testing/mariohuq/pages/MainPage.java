@@ -6,20 +6,11 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Selenide.*;
 
 public class MainPage {
+    private final SelenideElement sideNavigation = $(By.xpath("//*[contains(@class, 'nav-side')]"));
+    private final SelenideElement profileLink = sideNavigation.$(By.xpath("a[@data-l='t,userPage']"));
 
-    private final SelenideElement profileLink =
-            $(By.xpath("//*[contains(@class, 'nav-side')]//a[@data-l='t,userPage']"));
-
-    public MainPage() {
-        open("/");
-    }
-
-    public ProfilePage openProfile() {
+    public ProfilePage openProfilePage() {
         profileLink.click();
         return new ProfilePage();
-    }
-
-    public void logout() {
-        throw new UnsupportedOperationException("TODO");
     }
 }
