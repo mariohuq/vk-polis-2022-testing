@@ -3,8 +3,8 @@ plugins {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_16
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 group = "ru.mail.polis"
@@ -20,10 +20,6 @@ dependencies {
         because("we need @NotNull, etc.")
     }
 
-    testImplementation("org.seleniumhq.selenium:selenium-java:4.1.2") {
-        because("we want to use Selenium to remote control browsers")
-    }
-
     // https://selenide.org/quick-start.html
     implementation("com.codeborne:selenide:6.3.3") {
         because("we want to use Selenide too, to remote control browsers")
@@ -32,9 +28,10 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2") {
         because("we want to use JUnit 5 assertions")
     }
+
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }
 
-tasks.getByName<Test>("test") {
+tasks.test {
     useJUnitPlatform()
 }
