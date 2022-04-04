@@ -5,6 +5,6 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class ProfilePage {
+public class ProfilePage implements CheckablePage<ProfilePage> {
     public final SelenideElement userNameHeader = $(By.xpath("//a[@class='profile-user-info_name']"));
 }

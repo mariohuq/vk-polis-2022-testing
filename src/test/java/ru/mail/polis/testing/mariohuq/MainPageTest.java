@@ -6,9 +6,10 @@ import ru.mail.polis.testing.mariohuq.pages.LoginPage;
 import ru.mail.polis.testing.mariohuq.pages.MainPage;
 import ru.mail.polis.testing.mariohuq.utils.User;
 
+import static com.codeborne.selenide.CollectionCondition.sizeNotEqual;
 import static com.codeborne.selenide.Condition.text;
 
-public class OpenProfilePageTest extends BaseWebTest {
+public class MainPageTest extends BaseWebTest {
     MainPage mainPage;
 
     @BeforeEach
@@ -21,7 +22,13 @@ public class OpenProfilePageTest extends BaseWebTest {
     public void openProfilePage() {
         mainPage
                 .openProfilePage()
-                .userNameHeader
-                .shouldHave(text(User.fromProperties().displayName()));
+                .shouldHave(p -> p.userNameHeader, text(User.fromProperties().displayName()));
+    }
+
+    @Test
+    public void switchToRecommendationsTab() {
+        mainPage
+                .switchToRecommendationsTab()
+                .shouldHave(p -> p.feedPostsHideLinks, sizeNotEqual(0));
     }
 }
