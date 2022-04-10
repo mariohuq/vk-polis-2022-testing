@@ -7,11 +7,17 @@ import org.junit.jupiter.params.provider.ValueSource;
 import ru.mail.polis.testing.mariohuq.pages.LoginPage;
 import ru.mail.polis.testing.mariohuq.pages.SearchPage;
 import ru.mail.polis.testing.mariohuq.utils.User;
+
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static ru.mail.polis.testing.mariohuq.pages.SearchPage.SearchCategory.*;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsCollectionContaining.hasItem;
+import static org.hamcrest.core.StringContains.containsString;
+import static ru.mail.polis.testing.mariohuq.pages.SearchPage.SearchCategory.USERS;
+import static ru.yandex.qatools.matchers.webdriver.TextMatcher.text;
 
 public class SearchPageTest extends BaseWebTest {
+
     SearchPage searchPage;
 
     User user;
@@ -26,10 +32,8 @@ public class SearchPageTest extends BaseWebTest {
     @ParameterizedTest
     @ValueSource(strings = {"technopolisbot7", "Ivan Novozhilov"})
     public void searchByNameInList(String candidate) {
-
-        List<SelenideElement> items = searchPage.search(candidate)
-                // в общем-то время проходит
-                .getSearchItems();
-        assertTrue(items.stream().anyMatch((p) -> p.text().contains(candidate)));
+        List<SelenideElement> items = searchPage.search(candidate).getSearchItems();
+        assertThat("Search", items, hasItem(text(containsString(candidate))));
     }
+
 }
