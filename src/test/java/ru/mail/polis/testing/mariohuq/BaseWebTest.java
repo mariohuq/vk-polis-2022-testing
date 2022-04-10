@@ -2,6 +2,7 @@ package ru.mail.polis.testing.mariohuq;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -27,8 +28,8 @@ public class BaseWebTest {
         Selenide.open(url);
     }
 
-    @BeforeEach
+    @AfterEach
     public void resetDriver() {
-        Selenide.closeWebDriver();
+        Selenide.clearBrowserCookies();
     }
 }
