@@ -8,9 +8,9 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class SearchPage implements CheckablePage<SearchPage> {
 
-    private final static ElementsCollection menuButtons = $$(By.xpath("//ul[contains(@class,'wrap')]//button[@type='button']"));
-    private final static SelenideElement searchTextField = $(By.xpath("//*[contains(@class,'wrap-input')]//input[@type='text']"));
-    private final static ElementsCollection searchList = $$(By.xpath("//*[@data-l='musicLayerContainer,1.0.0,t,portal-search']//*[contains(@class,'row')]//*[contains(@class,'card-caption')]"));
+    private final static ElementsCollection menuButtons = $$(By.xpath("//*[contains(@class,'tabs-redesign')]//li[contains(@class, 'menu-button')]"));
+    private final static SelenideElement searchTextField = $(By.xpath("//*[contains(@class, 'search-content')]//input"));
+    private final static ElementsCollection searchList = $$(By.xpath("//*[contains(@class, 'portal-search-island')]//*[contains(@class,'row')]//*[contains(@class,'card-caption')]"));
 
     public SearchPage() {
         open("/search");
