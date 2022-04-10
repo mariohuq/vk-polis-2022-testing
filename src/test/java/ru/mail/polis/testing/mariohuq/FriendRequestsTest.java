@@ -24,7 +24,6 @@ public class FriendRequestsTest extends BaseWebTest {
     }
 
     @Test
-
     public void removeFriend() {
         assertThat(is(new FriendsPage(SENT_REQUEST)
                 .hasFriendRequest(TARGET_USER_NAME)
