@@ -14,7 +14,6 @@ public class MainPageTest extends BaseWebTest {
 
     @BeforeEach
     public void before() {
-        open("/");
         mainPage = new LoginPage().loginAs(User.fromProperties());
     }
 

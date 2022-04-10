@@ -29,6 +29,6 @@ public class BaseWebTest {
 
     @AfterEach
     public void resetDriver() {
-        Selenide.clearBrowserCookies();
+        Selenide.closeWebDriver();
     }
 }
