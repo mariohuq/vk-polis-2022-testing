@@ -10,7 +10,7 @@ import ru.mail.polis.testing.mariohuq.utils.User;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.is;
-import static ru.mail.polis.testing.mariohuq.pages.FriendsPage.FriendsCatalog.SENT_REQUEST;
+import static ru.mail.polis.testing.mariohuq.pages.FriendsPage.FriendsCatalogTab.SENT_REQUEST;
 import static ru.mail.polis.testing.mariohuq.pages.SearchPage.SearchCategory.USERS;
 
 public class FriendRequestsTest extends BaseWebTest {
@@ -26,7 +26,7 @@ public class FriendRequestsTest extends BaseWebTest {
     @Test
     public void removeFriend() {
         assertThat(is(new FriendsPage(SENT_REQUEST)
-                .hasFriendRequest(TARGET_USER_NAME)
+                .shouldHaveFriendRequestFrom(TARGET_USER_NAME)
                 .removeRequest(TARGET_USER_NAME)), anything());
     }
 

@@ -17,7 +17,6 @@ import static ru.mail.polis.testing.mariohuq.pages.SearchPage.SearchCategory.USE
 import static ru.yandex.qatools.matchers.webdriver.TextMatcher.text;
 
 public class SearchPageTest extends BaseWebTest {
-
     SearchPage searchPage;
 
     User user;
@@ -35,5 +34,4 @@ public class SearchPageTest extends BaseWebTest {
         List<SelenideElement> items = searchPage.search(candidate).getSearchItems();
         assertThat("Search", items, hasItem(text(containsString(candidate))));
     }
-
 }

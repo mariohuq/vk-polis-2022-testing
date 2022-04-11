@@ -6,15 +6,17 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
+import java.util.Objects;
+
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.open;
-import static ru.mail.polis.testing.mariohuq.pages.FriendsPage.FriendsCatalog.SENT_REQUEST;
+import static ru.mail.polis.testing.mariohuq.pages.FriendsPage.FriendsCatalogTab.SENT_REQUEST;
 
 public class FriendsPage implements CheckablePage<FriendsPage> {
-
-
-    private final static ElementsCollection menuButtons = $$(By.xpath("//*[@id='UserFriendsCatalogRB']//a[contains(@class,'nav-side')]"));
-    private final static ElementsCollection friendRequests = $$(By.xpath("//*[@id='listBlockPanelOutgoingFriendshipRequests']//*[contains(@class,'portlet_b')]//*[contains(@class,'caption')]"));
+    private final static ElementsCollection menuButtons =
+            $$(By.xpath("//*[@id='UserFriendsCatalogRB']//a[contains(@class,'nav-side')]"));
+    private final static ElementsCollection friendRequestsCaptions =
+            $$(By.xpath("//*[@id='listBlockPanelOutgoingFriendshipRequests']//*[contains(@class,'portlet_b')]//*[contains(@class,'caption')]"));
 
     private final static By cancelRequest = By.xpath(".//span[contains(@class,'js-entity-decline button-pro')]");
     private final static By requestName = By.xpath(".//a[contains(@class,'o')]");
@@ -23,19 +25,19 @@ public class FriendsPage implements CheckablePage<FriendsPage> {
         open("/friends");
     }
 
-    public FriendsPage(FriendsCatalog tab) {
+    public FriendsPage(FriendsCatalogTab tab) {
         this();
         switchToTab(tab);
     }
 
-    public FriendsPage switchToTab(FriendsCatalog tab) {
+    public FriendsPage switchToTab(FriendsCatalogTab tab) {
         tab.switchTo();
         return this;
     }
 
-    public FriendsPage hasFriendRequest(String name) {
+    public FriendsPage shouldHaveFriendRequestFrom(String name) {
         validateRemoveRequest();
-        friendRequests.shouldHave(CollectionCondition.anyMatch("Friend request",
+        friendRequestsCaptions.shouldHave(CollectionCondition.anyMatch("Friend request",
                 (p -> p.getText().contains(name))
         ));
         return this;
@@ -43,7 +45,7 @@ public class FriendsPage implements CheckablePage<FriendsPage> {
 
     public FriendsPage removeRequest(String name) {
         validateRemoveRequest();
-        for (SelenideElement friendRequest : friendRequests) {
+        for (SelenideElement friendRequest : friendRequestsCaptions) {
             if (friendRequest.find(requestName).text().contains(name)) {
                 friendRequest.find(cancelRequest).click();
                 return this;
@@ -54,7 +56,7 @@ public class FriendsPage implements CheckablePage<FriendsPage> {
 
     public FriendsPage removeFirstRequest() {
         validateRemoveRequest();
-        friendRequests.first().find(cancelRequest).click();
+        friendRequestsCaptions.first().find(cancelRequest).click();
         return this;
     }
 
@@ -63,13 +65,12 @@ public class FriendsPage implements CheckablePage<FriendsPage> {
             throw new RuntimeException("Invalid page");
         }
 
-        if (friendRequests.size() == 0) {
+        if (friendRequestsCaptions.size() == 0) {
             throw new RuntimeException("Empty list");
         }
     }
 
-    public enum FriendsCatalog {
-
+    public enum FriendsCatalogTab {
         ALL(menuButtons.get(0)),
         ONLINE(menuButtons.get(1)),
         FRIEND_REQUEST(menuButtons.get(2)),
@@ -79,13 +80,13 @@ public class FriendsPage implements CheckablePage<FriendsPage> {
 
         private final SelenideElement categoryButton;
 
-        FriendsCatalog(SelenideElement btn) {
+        FriendsCatalogTab(SelenideElement btn) {
 
             this.categoryButton = btn;
         }
 
         public boolean isSelected() {
-            return this.categoryButton.getAttribute("class").contains("__ac");
+            return Objects.requireNonNull(this.categoryButton.getAttribute("class")).contains("__ac");
         }
 
         public void switchTo() {
