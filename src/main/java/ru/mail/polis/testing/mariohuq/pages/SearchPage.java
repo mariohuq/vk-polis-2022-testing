@@ -1,16 +1,16 @@
 package ru.mail.polis.testing.mariohuq.pages;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
+import static com.codeborne.selenide.Condition.attributeMatching;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 import static ru.mail.polis.testing.mariohuq.pages.SearchPage.SearchCategory.USERS;
 
 public class SearchPage implements CheckablePage<SearchPage> {
-
     private final static ElementsCollection menuButtons = $$(By.xpath("//*[contains(@class,'tabs-redesign')]//li[contains(@class, 'menu-button')]"));
     private final static SelenideElement headerField = $(By.xpath("//*[contains(@class, 'island_header')]"));
     private final static SelenideElement searchTextField = $(By.xpath("//*[contains(@class, 'search-content')]//input"));
@@ -21,7 +21,7 @@ public class SearchPage implements CheckablePage<SearchPage> {
     private final static By peopleNameField = By.xpath(".//*[contains(@class,'card-caption')]");
     private final static By peopleAddFriendButton = By.xpath(".//button[contains(@class,'button')]");
 
-    private final static String headerStart = "Возможно, вы знакомы";
+    private final static String headerStart = "Р’РѕР·РјРѕР¶РЅРѕ, РІС‹ Р·РЅР°РєРѕРјС‹";
 
     public SearchPage() {
         open("/search");
@@ -39,7 +39,7 @@ public class SearchPage implements CheckablePage<SearchPage> {
 
     public SearchPage search(String name) {
         searchTextField.setValue(name);
-        searchTextField.pressEnter(); // кнопки для слабых
+        searchTextField.pressEnter(); // РєРЅРѕРїРєРё РґР»СЏ СЃР»Р°Р±С‹С…
         headerField.shouldNotHave(text(headerStart));
         return this;
     }
@@ -54,7 +54,6 @@ public class SearchPage implements CheckablePage<SearchPage> {
 
     public SearchPage addFriendFromSearch(String name) {
         validateAddRequest();
-
         for (SelenideElement selenideElement : peopleSearchList) {
             if (selenideElement.find(peopleNameField).text().contains(name)) {
                 ElementsCollection root = selenideElement.findAll(peopleAddFriendButton);
@@ -64,18 +63,12 @@ public class SearchPage implements CheckablePage<SearchPage> {
                 return this;
             }
         }
-
         return this;
     }
 
     private void validateAddRequest() {
-        if (!USERS.isSelected()) {
-            throw new RuntimeException("Invalid page");
-        }
-
-        if (peopleSearchList.size() == 0) {
-            throw new RuntimeException("Empty list");
-        }
+        USERS.shouldBeSelected();
+        peopleSearchList.shouldHave(sizeGreaterThan(0));
     }
 
     public enum SearchCategory {
@@ -93,13 +86,13 @@ public class SearchPage implements CheckablePage<SearchPage> {
             this.categoryButton = btn;
         }
 
-        public boolean isSelected() {
-            return this.categoryButton.getAttribute("class").contains("__active");
+        public void shouldBeSelected() {
+            categoryButton.shouldHave(attributeMatching("class", ".*__active.*"));
         }
 
         public void switchTo() {
             categoryButton.click();
-            this.categoryButton.shouldHave(Condition.attributeMatching("class", ".*__active.*"));
+            shouldBeSelected();
         }
     }
 

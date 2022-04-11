@@ -48,7 +48,7 @@ public class FriendsPage implements CheckablePage<FriendsPage> {
         for (SelenideElement friendRequest : friendRequestsCaptions) {
             if (friendRequest.find(requestName).text().contains(name)) {
                 friendRequest.find(cancelRequest).click();
-                return this;
+                break;
             }
         }
         return this;
@@ -74,7 +74,7 @@ public class FriendsPage implements CheckablePage<FriendsPage> {
         ALL(menuButtons.get(0)),
         ONLINE(menuButtons.get(1)),
         FRIEND_REQUEST(menuButtons.get(2)),
-        MAYKNOW(menuButtons.get(3)),
+        MAY_KNOW(menuButtons.get(3)),
         SENT_REQUEST(menuButtons.get(4)),
         CATEGORIES(menuButtons.get(5));
 
@@ -92,7 +92,6 @@ public class FriendsPage implements CheckablePage<FriendsPage> {
         public void switchTo() {
             categoryButton.click();
             this.categoryButton.shouldHave(Condition.attributeMatching("class", ".*__ac.*"));
-
         }
     }
 
