@@ -25,8 +25,19 @@ dependencies {
         because("we want to use Selenide too, to remote control browsers")
     }
 
+    implementation("ru.yandex.qatools.matchers:webdriver-matchers:1.4.1") {
+        because("we were asked to")
+    }
+    implementation("ru.yandex.qatools.matchers:collection-matchers:1.4.1") {
+        because("we were asked to")
+    }
+
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2") {
         because("we want to use JUnit 5 assertions")
+    }
+
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2") {
+        because("parametrized test")
     }
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
